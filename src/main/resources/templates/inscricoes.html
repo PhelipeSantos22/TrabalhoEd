@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciar Inscrições</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            height: 100vh;
+            background-color: #e0f0ff;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 30px;
+        }
+
+        h1 {
+            font-size: 2em;
+            color: #003366;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .section {
+            margin-bottom: 25px;
+            padding: 15px;
+            border: 1px solid #cce0ff;
+            border-radius: 8px;
+            background-color: #f5faff;
+        }
+
+        .section h2 {
+            font-size: 1.2em;
+            color: #00509e;
+            margin-bottom: 10px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 10px;
+        }
+
+        .input-group label {
+            font-weight: bold;
+            color: #00509e;
+            margin-bottom: 5px;
+        }
+
+        .input-group input {
+            padding: 8px;
+            border: 1px solid #cce0ff;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
+        .button {
+            display: inline-block;
+            text-decoration: none;
+            color: white;
+            background-color: #0074cc;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 1em;
+            text-align: center;
+            width: 100%;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 10px;
+        }
+
+        .button:hover {
+            background-color: #005fa3;
+        }
+
+        .back-button {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .response-container {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #eef7ff;
+            border: 1px solid #cce0ff;
+            border-radius: 8px;
+            display: none;
+        }
+
+        input::placeholder {
+            color: #00509e;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Gerenciar Inscrições</h1>
+
+    <!-- Inserir Inscrição -->
+    <div class="section">
+        <h2>Inserir Inscrição</h2>
+        <div class="input-group">
+            <label for="cpf-prof-inserir">CPF do professor</label>
+            <input type="text" id="cpf-prof-inserir" name="cpf-prof-inserir">
+        </div>
+        <div class="input-group">
+            <label for="codigo-disc-inserir">Código da disciplina</label>
+            <input type="text" id="codigo-disc-inserir" name="codigo-disc-inserir">
+        </div>
+        <div class="input-group">
+            <label for="codigo-proc-inserir">Código do processo</label>
+            <input type="text" id="codigo-proc-inserir" name="codigo-proc-inserir">
+        </div>
+        <button class="button" onclick="inserirInscricao()">Inserir</button>
+    </div>
+
+    <!-- Atualizar Inscrição -->
+    <div class="section">
+        <h2>Atualizar Inscrição</h2>
+        <div class="input-group">
+            <label for="cpf-prof-atualizar">CPF do professor</label>
+            <input type="text" id="cpf-prof-atualizar" name="cpf-prof-atualizar" placeholder="Informe o CPF do professor para atualizar">
+        </div>
+        <div class="input-group">
+            <label for="codigo-disc-atualizar">Código da disciplina</label>
+            <input type="text" id="codigo-disc-atualizar" name="codigo-disc-atualizar">
+        </div>
+        <div class="input-group">
+            <label for="codigo-proc-atualizar">Código do processo</label>
+            <input type="text" id="codigo-proc-atualizar" name="codigo-proc-atualizar">
+        </div>
+        <button class="button" onclick="atualizarInscricao()">Atualizar</button>
+    </div>
+
+    <!-- Remover Inscrição -->
+    <div class="section">
+        <h2>Remover Inscrição</h2>
+        <div class="input-group">
+            <label for="cpf-prof-remover">CPF do professor</label>
+            <input type="text" id="cpf-prof-remover" name="cpf-prof-remover" placeholder="Informe o CPF do professor para remover">
+        </div>
+        <button class="button" onclick="removerInscricao()">Remover</button>
+    </div>
+
+    <!-- Consultar Inscrição -->
+    <div class="section">
+        <h2>Consultar Inscrição</h2>
+        <div class="input-group">
+            <label for="cpf-prof-consultar">CPF do professor</label>
+            <input type="text" id="cpf-prof-consultar" name="cpf-prof-consultar" placeholder="Informe o CPF do professor para consultar">
+        </div>
+        <button class="button" onclick="consultarInscricao()">Consultar</button>
+
+        <!-- Container para exibir o resultado da consulta -->
+        <div id="response-container" class="response-container">
+            <h2>Dados da Inscrição</h2>
+            <p id="response-text">Dados da inscrição aparecerão aqui...</p>
+        </div>
+    </div>
+
+    <!-- Botão Voltar -->
+    <div class="back-button">
+        <a href="/index.html" class="button">Voltar para o Menu Principal</a>
+    </div>
+</div>
+
+<script>
+    function inserirInscricao() {
+        const cpfProfessor = document.getElementById('cpf-prof-inserir').value;
+        const codigoDisciplina = document.getElementById('codigo-disc-inserir').value;
+        const codigoDoProcesso = document.getElementById('codigo-proc-inserir').value;
+
+        const inscricao = {
+            cpfProfessor: cpfProfessor,
+            codigoDisciplina: codigoDisciplina,
+            codigoDoProcesso: codigoDoProcesso
+        };
+
+        fetch('/inscricoes/inserir', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(inscricao)
+        })
+            .then(response => {
+                if (response.ok) {
+                    alert('Inscrição inserida com sucesso!');
+                    // Limpar campos após a inserção
+                    document.getElementById('cpf-prof-inserir').value = '';
+                    document.getElementById('codigo-disc-inserir').value = '';
+                    document.getElementById('codigo-proc-inserir').value = '';
+                } else {
+                    alert('Erro ao inserir inscrição.');
+                }
+            })
+            .catch(error => {
+                console.error('Erro ao inserir inscrição:', error);
+            });
+    }
+
+    function atualizarInscricao() {
+        const cpfProfessor = document.getElementById('cpf-prof-atualizar').value;
+        const codigoDisciplina = document.getElementById('codigo-disc-atualizar').value;
+        const codigoDoProcesso = document.getElementById('codigo-proc-atualizar').value;
+
+        const inscricao = {
+            cpfProfessor: cpfProfessor,
+            codigoDisciplina: codigoDisciplina,
+            codigoDoProcesso: codigoDoProcesso
+        };
+
+        fetch('/inscricoes/atualizar', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(inscricao)
+        })
+            .then(response => {
+                if (response.ok) {
+                    alert('Inscrição atualizada com sucesso!');
+                    // Limpar campos após a atualização
+                    document.getElementById('cpf-prof-atualizar').value = '';
+                    document.getElementById('codigo-disc-atualizar').value = '';
+                    document.getElementById('codigo-proc-atualizar').value = '';
+                } else {
+                    alert('Erro ao atualizar inscrição.');
+                }
+            })
+            .catch(error => {
+                console.error('Erro ao atualizar inscrição:', error);
+            });
+    }
+
+    function removerInscricao() {
+        const cpfProfessor = document.getElementById('cpf-prof-remover').value;
+
+        fetch(`/inscricoes/remover/${cpfProfessor}`, {
+            method: 'DELETE'
+        })
+            .then(response => {
+                if (response.ok) {
+                    alert('Inscrição removida com sucesso!');
+                    // Limpar campo após a remoção
+                    document.getElementById('cpf-prof-remover').value = '';
+                } else {
+                    alert('Erro ao remover inscrição.');
+                }
+            })
+            .catch(error => {
+                console.error('Erro ao remover inscrição:', error);
+            });
+    }
+
+    function consultarInscricao() {
+        const cpfProfessor = document.getElementById('cpf-prof-consultar').value;
+
+        fetch(`/inscricoes/consultar/${cpfProfessor}`, {
+            method: 'GET'
+            })
+            .then(response => response.json())
+            .then(data => {
+                const responseContainer = document.getElementById('response-container');
+                const responseText = document.getElementById('response-text');
+                if (data) {
+                    responseText.innerHTML = `
+                    CPF do Professor: ${data.cpfProfessor}<br>
+                    Código da Disciplina: ${data.codigoDisciplina}<br>
+                    Código do Processo: ${data.codigoDoProcesso}
+                `;
+                    responseContainer.style.display = 'block';
+                } else {
+                    responseText.innerText = 'Inscrição não encontrada.';
+                    responseContainer.style.display = 'block';
+                }
+            })
+            .catch(error => {
+                console.error('Erro ao consultar inscrição:', error);
+            });
+    }
+</script>
+</body>
+</html>

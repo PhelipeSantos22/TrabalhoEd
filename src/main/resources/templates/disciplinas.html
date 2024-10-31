@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciar Disciplinas</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            height: 100vh;
+            background-color: #e0f0ff;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 30px;
+        }
+
+        h1 {
+            font-size: 2em;
+            color: #003366;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .section {
+            margin-bottom: 25px;
+            padding: 15px;
+            border: 1px solid #cce0ff;
+            border-radius: 8px;
+            background-color: #f5faff;
+        }
+
+        .section h2 {
+            font-size: 1.2em;
+            color: #00509e;
+            margin-bottom: 10px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 10px;
+        }
+
+        .input-group label {
+            font-weight: bold;
+            color: #00509e;
+            margin-bottom: 5px;
+        }
+
+        .input-group input {
+            padding: 8px;
+            border: 1px solid #cce0ff;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
+        .button {
+            display: inline-block;
+            text-decoration: none;
+            color: white;
+            background-color: #0074cc;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 1em;
+            text-align: center;
+            width: 100%;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 10px;
+        }
+
+        .button:hover {
+            background-color: #005fa3;
+        }
+
+        .back-button {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .response-container {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #eef7ff;
+            border: 1px solid #cce0ff;
+            border-radius: 8px;
+            display: none;
+        }
+
+        input::placeholder {
+            color: #00509e;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Gerenciar Disciplinas</h1>
+
+    <!-- Inserir Disciplinas -->
+    <div class="section">
+        <h2>Inserir Disciplina</h2>
+        <div class="input-group">
+            <label for="codigo-inserir">Código</label>
+            <input type="text" id="codigo-inserir" name="codigo-inserir">
+        </div>
+        <div class="input-group">
+            <label for="nome-inserir">Nome</label>
+            <input type="text" id="nome-inserir" name="nome-inserir">
+        </div>
+        <div class="input-group">
+            <label for="dia-inserir">Dia da semana</label>
+            <input type="text" id="dia-inserir" name="dia-inserir">
+        </div>
+        <div class="input-group">
+            <label for="horario-inserir">Horário inicial</label>
+            <input type="text" id="horario-inserir" name="horario-inserir">
+        </div>
+        <div class="input-group">
+            <label for="horas-inserir">Horas diárias</label>
+            <input type="text" id="horas-inserir" name="horas-inserir">
+        </div>
+        <div class="input-group">
+            <label for="codigo-curso-inserir">Código do curso</label>
+            <input type="text" id="codigo-curso-inserir" name="codigo-curso-inserir">
+        </div>
+        <button class="button" onclick="inserirDisciplina()">Inserir</button>
+    </div>
+
+    <!-- Atualizar Disciplina -->
+    <div class="section">
+        <h2>Atualizar Disciplina</h2>
+        <div class="input-group">
+            <label for="codigo-atualizar">Código</label>
+            <input type="text" id="codigo-atualizar" name="codigo-atualizar" placeholder="Informe o codigo da disciplina para atualizar">
+        </div>
+        <div class="input-group">
+            <label for="nome-atualizar">Nome</label>
+            <input type="text" id="nome-atualizar" name="nome-atualizar">
+        </div>
+        <div class="input-group">
+            <label for="dia-atualizar">Dia da semana</label>
+            <input type="text" id="dia-atualizar" name="dia-atualizar">
+        </div>
+        <div class="input-group">
+            <label for="horario-atualizar">Horário inicial</label>
+            <input type="text" id="horario-atualizar" name="horario-atualizar">
+        </div>
+        <div class="input-group">
+            <label for="horas-atualizar">Horas diárias</label>
+            <input type="text" id="horas-atualizar" name="horas-atualizar">
+        </div>
+        <div class="input-group">
+            <label for="codigo-curso-atualizar">Código do curso</label>
+            <input type="text" id="codigo-curso-atualizar" name="codigo-curso-atualizar">
+        </div>
+        <button class="button" onclick="atualizarDisciplina()">Atualizar</button>
+    </div>
+
+    <!-- Remover Disciplina -->
+    <div class="section">
+        <h2>Remover Disciplina</h2>
+        <div class="input-group">
+            <label for="codigo-remover">Código</label>
+            <input type="text" id="codigo-remover" name="codigo-remover" placeholder="Informe o codigo da disciplina para remover">
+        </div>
+        <button class="button" onclick="removerDisciplina()">Remover</button>
+    </div>
+
+    <!-- Consultar Disciplina -->
+    <div class="section">
+        <h2>Consultar Disciplina</h2>
+        <div class="input-group">
+            <label for="codigo-consultar">Código</label>
+            <input type="text" id="codigo-consultar" name="codigo-consultar" placeholder="Informe o codigo da disciplina para consultar">
+        </div>
+        <button class="button" onclick="consultarDisciplina()">Consultar</button>
+
+        <div id="response-container" class="response-container">
+            <h2>Dados da Disciplina</h2>
+            <p id="response-text"></p>
+        </div>
+    </div>
+
+    <!-- Botão Voltar -->
+    <div class="back-button">
+        <a href="/index.html" class="button">Voltar para o Menu Principal</a>
+    </div>
+</div>
+
+<script>
+    function inserirDisciplina() {
+        const codigo = document.getElementById('codigo-inserir').value;
+        const nome = document.getElementById('nome-inserir').value;
+        const diaDaSemana = document.getElementById('dia-inserir').value;
+        const horarioInicial = document.getElementById('horario-inserir').value;
+        const horasDiarias = document.getElementById('horas-inserir').value;
+        const codigoCurso = document.getElementById('codigo-curso-inserir').value;
+
+        const disciplina = {
+            codigo: codigo,
+            nome: nome,
+            diaDaSemana: diaDaSemana,
+            horarioInicial: horarioInicial,
+            horasDiarias: horasDiarias,
+            codigoCurso: codigoCurso
+        };
+        fetch('/disciplinas/inserir', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(disciplina)
+        })
+            .then(response => {
+                if (response.ok) {
+                    alert('Disciplina inserida com sucesso!');
+                    document.getElementById('codigo-inserir').value = '';
+                    document.getElementById('nome-inserir').value = '';
+                    document.getElementById('dia-inserir').value = '';
+                    document.getElementById('horario-inserir').value = '';
+                    document.getElementById('horas-inserir').value = '';
+                    document.getElementById('codigo-curso-inserir').value = '';
+                } else {
+                    alert('Erro ao inserir disciplina. Verifique os dados e tente novamente.');
+                }
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+                alert('Erro ao inserir disciplina.');
+            });
+    }
+
+    function atualizarDisciplina() {
+        const codigo = document.getElementById('codigo-atualizar').value;
+        const nome = document.getElementById('nome-atualizar').value;
+        const diaDaSemana = document.getElementById('dia-atualizar').value;
+        const horarioInicial = document.getElementById('horario-atualizar').value;
+        const horasDiarias = document.getElementById('horas-atualizar').value;
+        const codigoCurso = document.getElementById('codigo-curso-atualizar').value;
+
+        const disciplina = {
+            codigo: codigo,
+            nome: nome,
+            diaDaSemana: diaDaSemana,
+            horarioInicial: horarioInicial,
+            horasDiarias: horasDiarias,
+            codigoCurso: codigoCurso
+        };
+
+        fetch(`/disciplinas/atualizar`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(disciplina)
+        })
+            .then(response => {
+                if (response.ok) {
+                    alert('Disciplina atualizada com sucesso!');
+                    document.getElementById('codigo-atualizar').value = "";
+                    document.getElementById('nome-atualizar').value = "";
+                    document.getElementById('dia-atualizar').value = "";
+                    document.getElementById('horario-atualizar').value = "";
+                    document.getElementById('horas-atualizar').value = "";
+                    document.getElementById('codigo-curso-atualizar').value = "";
+                } else {
+                    alert('Erro ao atualizar disciplina. Verifique se o código está correto.');
+                }
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+                alert('Erro ao atualizar disciplina.');
+            });
+    }
+
+    function removerDisciplina() {
+        const codigo = document.getElementById('codigo-remover').value;
+
+        fetch(`/disciplinas/remover/${codigo}`, {
+            method: 'DELETE'
+        })
+            .then(response => {
+                if (response.ok) {
+                    alert('Disciplina removida com sucesso!');
+                    document.getElementById('codigo-remover').value = "";
+                } else {
+                    alert('Erro ao remover disciplina. Verifique se o código está correto.');
+                }
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+                alert('Erro ao remover disciplina.');
+            });
+    }
+
+    function consultarDisciplina() {
+        const codigo = document.getElementById('codigo-consultar').value;
+
+        fetch(`/disciplinas/consultar/${codigo}`, {
+            method: 'GET'
+            })
+            .then(response => response.json())
+            .then(data => {
+                const responseContainer = document.getElementById('response-container');
+                const responseText = document.getElementById('response-text');
+                if (data){
+                    responseText.innerHTML = `
+                    Código: ${data.codigo}<br>
+                    Nome: ${data.nome}<br>
+                    Dia da semana: ${data.diaDaSemana}<br>
+                    Horario inicial: ${data.horarioInicial}<br>
+                    Horas da diarias: ${data.horasDiarias}<br>
+                    Código do curso: ${data.codigoCurso}
+                    `;
+                    responseContainer.style.display = 'block';
+                } else {
+                   responseText.innerHTML = 'Inscrição não encontrada';
+                   responseContainer.style.display = 'block';
+                }
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+                alert('Erro ao consultar disciplina.');
+            });
+    }
+</script>
+</body>
+</html>
