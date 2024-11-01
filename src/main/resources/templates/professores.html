@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://unpkg.com/react-input-mask/dist/react-input-mask.min.js"></script>
     <title>Gerenciar Professores</title>
     <style>
         * {
@@ -118,19 +120,19 @@
         <h2>Inserir Professor</h2>
         <div class="input-group">
             <label for="cpf-inserir">CPF</label>
-            <input type="text" id="cpf-inserir" name="cpf-inserir">
+            <input type="text" id="cpf-inserir" name="cpf-inserir" maxlength="14" oninput="mascaraCPF(this)" placeholder="Informe o CPF do Professor">
         </div>
         <div class="input-group">
             <label for="nome-inserir">Nome</label>
-            <input type="text" id="nome-inserir" name="nome-inserir">
+            <input type="text" id="nome-inserir" name="nome-inserir" placeholder="Informe o Nome do Professor">
         </div>
         <div class="input-group">
             <label for="area-inserir">Área</label>
-            <input type="text" id="area-inserir" name="area-inserir">
+            <input type="text" id="area-inserir" name="area-inserir" placeholder="Informe a área do Professor">
         </div>
         <div class="input-group">
             <label for="pontos-inserir">Pontos</label>
-            <input type="text" id="pontos-inserir" name="pontos-inserir">
+            <input type="text" id="pontos-inserir" name="pontos-inserir" placeholder="Informe o Pontos do Professor">
         </div>
         <button class="button" onclick="inserirProfessor()">Inserir</button>
     </div>
@@ -140,19 +142,19 @@
         <h2>Atualizar Professor</h2>
         <div class="input-group">
             <label for="cpf-atualizar">CPF</label>
-            <input type="text" id="cpf-atualizar" name="cpf-atualizar" placeholder="Informe o CPF do Professor para atualizar">
+            <input type="text" id="cpf-atualizar" name="cpf-atualizar" maxlength="14" oninput="mascaraCPF(this)" placeholder="Informe o CPF do Professor para atualiza-lo">
         </div>
         <div class="input-group">
             <label for="nome-atualizar">Nome</label>
-            <input type="text" id="nome-atualizar" name="nome-atualizar">
+            <input type="text" id="nome-atualizar" name="nome-atualizar" placeholder="Informe o novo nome">
         </div>
         <div class="input-group">
             <label for="area-atualizar">Área</label>
-            <input type="text" id="area-atualizar" name="area-atualizar">
+            <input type="text" id="area-atualizar" name="area-atualizar" placeholder="Informe a nova área">
         </div>
         <div class="input-group">
             <label for="pontos-atualizar">Pontos</label>
-            <input type="text" id="pontos-atualizar" name="pontos-atualizar">
+            <input type="text" id="pontos-atualizar" name="pontos-atualizar" placeholder="Informe o novo Ponto">
         </div>
         <button class="button" onclick="atualizarProfessor()">Atualizar</button>
     </div>
@@ -162,7 +164,7 @@
         <h2>Remover Professor</h2>
         <div class="input-group">
             <label for="cpf-remover">CPF</label>
-            <input type="text" id="cpf-remover" name="cpf-remover" placeholder="Informe o CPF do professor para ser removido">
+            <input type="text" id="cpf-remover" name="cpf-remover" placeholder="Informe o CPF do professor para ser removido" maxlength="14" oninput="mascaraCPF(this)">
         </div>
         <button class="button" onclick="removerProfessor()">Remover</button>
     </div>
@@ -171,8 +173,8 @@
     <div class="section">
         <h2>Consultar Professor</h2>
         <div class="input-group">
-            <label for="cpf-consultar">Cpf</label>
-            <input type="text" id="cpf-consultar" name="cpf-consultar" placeholder="Informe o codigo do Curso para consultar">
+            <label for="cpf-consultar">CPF</label>
+            <input type="text" id="cpf-consultar" name="cpf-consultar" placeholder="Informe o CPF do Professor para consultar" maxlength="14" oninput="mascaraCPF(this)">
         </div>
         <button class="button" onclick="consultarProfessor()">Consultar</button>
 
@@ -197,6 +199,14 @@
 </div>
 
 <script>
+    function mascaraCPF(campo) {
+        let valor = campo.value.replace(/\D/g, '');
+        valor = valor.replace(/(\d{3})(\d)/, '$1.$2');
+        valor = valor.replace(/(\d{3})(\d)/, '$1.$2');
+        valor = valor.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+        campo.value = valor;
+    }
+
     function inserirProfessor() {
         const cpf = document.getElementById('cpf-inserir').value;
         const nome = document.getElementById('nome-inserir').value;
@@ -316,7 +326,7 @@
             })
             .catch(error => {
                 console.error('Erro:', error);
-                alert('Erro ao consultar Professor.');
+                alert('Professor não encontrado.');
             });
     }
 </script>

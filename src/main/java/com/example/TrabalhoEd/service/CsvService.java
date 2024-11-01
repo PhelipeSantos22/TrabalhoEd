@@ -16,7 +16,7 @@ public class CsvService {
     public static void verificarOuCriarArquivos() {
         criarArquivoComCabecalho(DISCIPLINAS_FILE, "Código,Nome,Dia da Semana,Horário Inicial,Horas Diárias,Código do Curso");
         criarArquivoComCabecalho(CURSOS_FILE, "Código,Nome,Área de Conhecimento");
-        criarArquivoComCabecalho(PROFESSORES_FILE, "CPF,Nome,Área de Conhecimento");
+        criarArquivoComCabecalho(PROFESSORES_FILE, "CPF,Nome,Área de Conhecimento,Pontos");
         criarArquivoComCabecalho(INSCRICOES_FILE, "CPF do Professor,Código da Disciplina,Código do Processo");
     }
 

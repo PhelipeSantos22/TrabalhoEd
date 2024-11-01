@@ -39,7 +39,7 @@ public class DisciplinaService {
         } catch (IOException e) {
             System.err.println("Erro ao consultar disciplina: " + e.getMessage());
         }
-        return null; // Retorna null se não encontrar
+        return null;
     }
 
     public void atualizarDisciplina(Disciplina disciplina) {
