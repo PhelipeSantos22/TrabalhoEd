@@ -1,6 +1,7 @@
 package com.example.TrabalhoEd.service;
 
 import com.example.TrabalhoEd.model.Curso;
+import com.example.TrabalhoEd.model.ListaEncadeada;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -13,7 +14,19 @@ import java.nio.file.Paths;
 
 @Service
 public class CursoService {
-    private static final String CURSOS_FILE = "src/main/resources/Cursos.csv";
+    private final ListaEncadeada<Curso> listaCursos;
+    private static final String CURSOS_FILE = "src/main/resources/Cursos.csv"; // caminho para o arquivo csv
+
+    public CursoService() {
+        this.listaCursos = new ListaEncadeada<>(
+                CURSOS_FILE,
+                linha -> {
+                    String[] campos = linha.split(",");
+                    return new Curso(campos[0], campos[1], campos[2]);
+                },
+                curso -> curso.getCodigo() + "," + curso.getNome() + "," + curso.getAreaDeConhecimento()
+        );
+    }
 
     public void inserirCurso(Curso curso) {
         try (FileWriter writer = new FileWriter(CURSOS_FILE, true)) {
@@ -38,39 +51,11 @@ public class CursoService {
         return null; // Retorna null se não encontrar o curso
     }
 
-    public void atualizarCurso(Curso curso) {
-        Path caminhoArquivo = Paths.get(CURSOS_FILE);
-        try {
-            var linhas = Files.readAllLines(caminhoArquivo);
-            try (FileWriter writer = new FileWriter(CURSOS_FILE)) {
-                for (String linha : linhas) {
-                    String[] campos = linha.split(",");
-                    if (campos[0].equals(curso.getCodigo())) {
-                        writer.write(curso.getCodigo() + "," + curso.getNome() + "," + curso.getAreaDeConhecimento() + "\n");
-                    } else {
-                        writer.write(linha + "\n");
-                    }
-                }
-            }
-        } catch (IOException e) {
-            System.err.println("Erro ao atualizar curso: " + e.getMessage());
-        }
+    public void atualizarCurso(Curso cursoAtualizado) {
+        listaCursos.atualizar(cursoAtualizado, c -> c.getCodigo().equals(cursoAtualizado.getCodigo()));// chama a função atualizar da lista e passa o criterio
     }
 
     public void removerCurso(String codigo) {
-        Path caminhoArquivo = Paths.get(CURSOS_FILE);
-        try {
-            var linhas = Files.readAllLines(caminhoArquivo);
-            try (FileWriter writer = new FileWriter(CURSOS_FILE)) {
-                for (String linha : linhas) {
-                    String[] campos = linha.split(",");
-                    if (!campos[0].equals(codigo)) {
-                        writer.write(linha + "\n");
-                    }
-                }
-            }
-        } catch (IOException e) {
-            System.err.println("Erro ao remover curso: " + e.getMessage());
-        }
+        listaCursos.remover(c -> c.getCodigo().equals(codigo));// chama a função excluir da lista e passa o criterio
     }
 }
