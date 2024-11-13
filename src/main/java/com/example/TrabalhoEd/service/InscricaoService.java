@@ -52,6 +52,7 @@ public class InscricaoService {
 
     public void removerInscricao(String cpfProfessor) {
         listaInscricao.remover(i -> i.getCpfProfessor().equals(cpfProfessor));// chama a função excluir da lista e passa o criterio
+
     }
 
 }

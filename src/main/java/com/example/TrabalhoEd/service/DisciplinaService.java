@@ -1,6 +1,7 @@
 package com.example.TrabalhoEd.service;
 
 import com.example.TrabalhoEd.model.Disciplina;
+import com.example.TrabalhoEd.model.Inscricao;
 import com.example.TrabalhoEd.model.ListaEncadeada;
 import org.springframework.stereotype.Service;
 import java.io.BufferedReader;
@@ -10,6 +11,9 @@ import java.io.IOException;
 
 @Service
 public class DisciplinaService {
+    private final ListaEncadeada<Inscricao> listaInscricao;
+    private static final String INSCRICOES_FILE = "src/main/resources/Inscricoes.csv";
+
     private final ListaEncadeada<Disciplina> listaDisciplina;
     private static final String DISCIPLINAS_FILE = "src/main/resources/Disciplinas.csv";
 
@@ -21,6 +25,14 @@ public class DisciplinaService {
                     return new Disciplina(campos[0], campos[1], campos[2], campos[3], campos[4], campos[5]);
                 },
                 disciplina -> disciplina.getCodigo() + "," + disciplina.getNome() + "," + disciplina.getDiaDaSemana() + "," + disciplina.getHorarioInicial() + "," + disciplina.getHorasDiarias() + "," + disciplina.getCodigoCurso()
+        );
+        this.listaInscricao = new ListaEncadeada<>(
+                INSCRICOES_FILE,
+                linha -> {
+                    String[] campos = linha.split(",");
+                    return new Inscricao(campos[0], campos[1], campos[2]);
+                },
+                inscricao -> inscricao.getCpfProfessor() + "," + inscricao.getCodigoDisciplina() + "," + inscricao.getCodigoDoProcesso()
         );
     }
 
@@ -59,5 +71,6 @@ public class DisciplinaService {
 
     public void removerDisciplina(String codigo) {
        listaDisciplina.remover(d -> d.getCodigo().equals(codigo) ); // chama a função atualizar da lista e passa o criterio
+       listaInscricao.remover(i -> i.getCodigoDisciplina().equals(codigo)); // quando deletar uma disciplina remove todas as inscrições que tem o codigo da disciplina
     }
 }
