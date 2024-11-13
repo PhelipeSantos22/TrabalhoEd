@@ -1,4 +1,6 @@
 package com.example.TrabalhoEd.model;
+import org.springframework.stereotype.Component;
+
 import java.io.*;
 import java.nio.file.*;
 import java.util.LinkedList;
