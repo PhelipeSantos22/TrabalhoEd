@@ -5,6 +5,8 @@ import com.example.TrabalhoEd.service.DisciplinaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/disciplinas")
 public class DisciplinaController {
@@ -19,6 +21,11 @@ public class DisciplinaController {
     @PostMapping("/inserir")
     public void inserirDisciplina(@RequestBody Disciplina disciplina){
         disciplinaService.inserirDisciplina(disciplina);
+    }
+
+    @GetMapping("/consultar/curso/{codigoCurso}")
+    public List<Disciplina> consultarDisciplinasPorCurso(@PathVariable String codigoCurso){
+        return  disciplinaService.consultarDisciplinasPorCurso(codigoCurso);
     }
 
     @GetMapping("/consultar/{codigo}")

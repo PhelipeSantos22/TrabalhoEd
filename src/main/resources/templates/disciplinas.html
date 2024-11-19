@@ -198,6 +198,21 @@
         </div>
     </div>
 
+    <!-- Consultar disciplinas de um Curso-->
+    <div class="section">
+        <h2>Consultar disciplinas de um Curso</h2>
+        <div class="input-group">
+            <label for="codigo-curso-consultar">Código do Curso</label>
+            <input type="text" id="codigo-curso-consultar" name="codigo-curso-consultar" placeholder="Informe o codigo do curso para consultar">
+        </div>
+        <button class="button" onclick="consultarDisciplinasPorCurso()">Consultar</button>
+
+        <div id="response-container2" class="response-container">
+            <h2>Dados das Disciplinas</h2>
+            <p id="response-text2"></p>
+        </div>
+    </div>
+
     <!-- Botão Voltar -->
     <div class="back-button">
         <a href="/index.html" class="button">Voltar para o Menu Principal</a>
@@ -340,6 +355,57 @@
                 alert('Erro ao consultar disciplina.');
             });
     }
+    function consultarDisciplinasPorCurso() {
+    const codigoCurso = document.getElementById('codigo-curso-consultar').value;
+
+    // Verifica se o código do curso foi preenchido
+    if (!codigoCurso) {
+        alert("Por favor, insira o código do curso.");
+        return;
+    }
+
+    fetch(`/disciplinas/consultar/curso/${codigoCurso}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(response => {
+            if (response.ok) {
+                return response.json(); // Converte a resposta em JSON
+            } else {
+                throw new Error("Erro ao consultar as disciplinas do curso. Verifique o código e tente novamente.");
+            }
+        })
+        .then(data => {
+            // Verifica se há disciplinas no retorno
+            if (data.length === 0) {
+                document.getElementById('response-text2').textContent = "Nenhuma disciplina encontrada para este curso.";
+            } else {
+                // Monta o texto de resposta
+                const disciplinasHTML = data.map(disciplina => `
+                    <div>
+                        <strong>Código:</strong> ${disciplina.codigo}<br>
+                        <strong>Nome:</strong> ${disciplina.nome}<br>
+                        <strong>Dia:</strong> ${disciplina.diaDaSemana}<br>
+                        <strong>Horário:</strong> ${disciplina.horarioInicial}<br>
+                        <strong>Horas:</strong> ${disciplina.horasDiarias}<br>
+                        <strong>Curso:</strong> ${disciplina.codigoCurso}
+                    </div>
+                    <hr>
+                `).join('');
+                document.getElementById('response-text2').innerHTML = disciplinasHTML;
+            }
+
+            // Mostra o contêiner de resposta
+            document.getElementById('response-container2').style.display = 'block';
+        })
+        .catch(error => {
+            console.error('Erro:', error);
+            alert(error.message);
+        });
+}
+
 </script>
 </body>
 </html>
