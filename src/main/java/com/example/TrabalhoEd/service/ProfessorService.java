@@ -1,5 +1,6 @@
 package com.example.TrabalhoEd.service;
 
+import br.edu.fateczl.fila.Fila;
 import com.example.TrabalhoEd.model.ListaEncadeada;
 import com.example.TrabalhoEd.model.Professor;
 import org.springframework.stereotype.Service;
@@ -40,20 +41,28 @@ public class ProfessorService {
             System.err.println("Erro ao inserir professor: " + e.getMessage());
         }
     }
-
+    // Consultar um professor usando fila
     public Professor consultarProfessor(String cpf) {
+        Fila<Professor> filaDeProfessores = new Fila<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(PROFESSORES_FILE))) {
             String linha;
             while ((linha = reader.readLine()) != null) {
                 String[] campos = linha.split(",");
-                if (campos[0].equals(cpf)) {
-                    return new Professor(campos[0], campos[1], campos[2], campos[3]);
+                filaDeProfessores.insert( new Professor(campos[0], campos[1], campos[2], campos[3]));
+            }
+
+            while(!filaDeProfessores.isEmpty()){
+                Professor professor = filaDeProfessores.remove();
+                if (professor.getCpf().equals(cpf)){
+                    return professor;
                 }
             }
         } catch (IOException e) {
             System.err.println("Erro ao consultar professor: " + e.getMessage());
+        }  catch (Exception e) {
+            System.err.println("Erro ao manipular a fila: " + e.getMessage());
         }
-        return null; // Retorna null se não encontrar o professor
+        return null;
     }
 
     public void atualizarProfessor(Professor professorAtualizado){

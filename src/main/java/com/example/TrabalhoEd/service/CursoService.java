@@ -1,5 +1,6 @@
 package com.example.TrabalhoEd.service;
 
+import br.edu.fateczl.fila.Fila;
 import com.example.TrabalhoEd.model.Curso;
 import com.example.TrabalhoEd.model.ListaEncadeada;
 import org.springframework.stereotype.Service;
@@ -32,21 +33,32 @@ public class CursoService {
             System.err.println("Erro ao inserir curso: " + e.getMessage());
         }
     }
-
+    // Consultar um curso usando fila
     public Curso consultarCurso(String codigo) {
+        Fila<Curso> filaDeCursos = new Fila<>();
+
         try (BufferedReader reader = new BufferedReader(new FileReader(CURSOS_FILE))) {
             String linha;
             while ((linha = reader.readLine()) != null) {
                 String[] campos = linha.split(",");
-                if (campos[0].equals(codigo)) {
-                    return new Curso(campos[0], campos[1], campos[2]);
+
+                filaDeCursos.insert(new Curso(campos[0], campos[1], campos[2]));
+            }
+
+            while (!filaDeCursos.isEmpty()) {
+                Curso curso = filaDeCursos.remove();
+                if (curso.getCodigo().equals(codigo)) {
+                    return curso;
                 }
             }
         } catch (IOException e) {
             System.err.println("Erro ao consultar curso: " + e.getMessage());
+        } catch (Exception e) {
+            System.err.println("Erro ao manipular a fila: " + e.getMessage());
         }
-        return null; // Retorna null se não encontrar o curso
+        return null;
     }
+
 
     public void atualizarCurso(Curso cursoAtualizado) {
         listaCursos.atualizar(cursoAtualizado, c -> c.getCodigo().equals(cursoAtualizado.getCodigo()));// chama a função atualizar da lista e passa o criterio

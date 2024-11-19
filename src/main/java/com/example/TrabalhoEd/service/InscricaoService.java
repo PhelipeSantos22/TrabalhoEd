@@ -1,7 +1,9 @@
 package com.example.TrabalhoEd.service;
 
+import br.edu.fateczl.fila.Fila;
 import com.example.TrabalhoEd.model.Inscricao;
 import com.example.TrabalhoEd.model.ListaEncadeada;
+import com.example.TrabalhoEd.model.Professor;
 import org.springframework.stereotype.Service;
 import java.io.*;
 
@@ -31,18 +33,27 @@ public class InscricaoService {
             System.err.println("Erro ao inserir inscrição: " + e.getMessage());
         }
     }
-
+    // Consultar Inscrição usando Fila
     public Inscricao consultarInscricao(String cpfProfessor) {
+        Fila<Inscricao> filaDeInscricao = new Fila<>();
+
         try (BufferedReader reader = new BufferedReader(new FileReader(INSCRICOES_FILE))) {
             String linha;
             while ((linha = reader.readLine()) != null) {
                 String[] dados = linha.split(",");
-                if (dados[0].equals(cpfProfessor)) {
-                    return new Inscricao(dados[0], dados[1], dados[2]);
+                filaDeInscricao.insert(new Inscricao(dados[0], dados[1], dados[2]));
+            }
+
+            while(!filaDeInscricao.isEmpty()){
+                Inscricao inscricao = filaDeInscricao.remove();
+                if (inscricao.getCpfProfessor().equals(cpfProfessor)){
+                    return inscricao;
                 }
             }
         } catch (IOException e) {
             System.err.println("Erro ao consultar inscrição: " + e.getMessage());
+        } catch (Exception e) {
+            System.err.println("Erro ao manipular a fila: " + e.getMessage());
         }
         return null;
     }

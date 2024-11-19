@@ -1,5 +1,6 @@
 package com.example.TrabalhoEd.service;
 
+import br.edu.fateczl.fila.Fila;
 import com.example.TrabalhoEd.model.Disciplina;
 import com.example.TrabalhoEd.model.Inscricao;
 import com.example.TrabalhoEd.model.ListaEncadeada;
@@ -49,18 +50,27 @@ public class DisciplinaService {
             System.err.println("Erro ao inserir disciplina: " + e.getMessage());
         }
     }
-
+    // Consultar uma disciplina usando fila
     public Disciplina consultarDisciplina(String codigo) {
+        Fila<Disciplina> filaDeDisciplinas = new Fila<>();
+
         try (BufferedReader reader = new BufferedReader(new FileReader(DISCIPLINAS_FILE))) {
             String linha;
             while ((linha = reader.readLine()) != null) {
                 String[] dados = linha.split(",");
-                if (dados[0].equals(codigo)) {
-                    return new Disciplina(dados[0], dados[1], dados[2], dados[3], dados[4], dados[5]);
+                filaDeDisciplinas.insert(new Disciplina(dados[0], dados[1], dados[2], dados[3], dados[4], dados[5]));
+            }
+
+            while(!filaDeDisciplinas.isEmpty()){
+                Disciplina disciplina = filaDeDisciplinas.remove();
+                if (disciplina.getCodigo().equals(codigo)){
+                    return disciplina;
                 }
             }
         } catch (IOException e) {
             System.err.println("Erro ao consultar disciplina: " + e.getMessage());
+        } catch (Exception e) {
+            System.err.println("Erro ao manipular a fila: " + e.getMessage());
         }
         return null;
     }
