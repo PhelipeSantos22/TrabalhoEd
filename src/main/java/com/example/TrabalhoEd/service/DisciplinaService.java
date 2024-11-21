@@ -2,9 +2,9 @@ package com.example.TrabalhoEd.service;
 
 import br.edu.fateczl.fila.Fila;
 import com.example.TrabalhoEd.model.Disciplina;
-import com.example.TrabalhoEd.model.HashTable;
+import com.example.TrabalhoEd.utils.HashTable;
 import com.example.TrabalhoEd.model.Inscricao;
-import com.example.TrabalhoEd.model.ListaEncadeada;
+import com.example.TrabalhoEd.utils.ListaEncadeada;
 import org.springframework.stereotype.Service;
 import java.io.BufferedReader;
 import java.io.FileReader;

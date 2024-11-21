@@ -2,7 +2,7 @@ package com.example.TrabalhoEd.service;
 
 import br.edu.fateczl.fila.Fila;
 import com.example.TrabalhoEd.model.Curso;
-import com.example.TrabalhoEd.model.ListaEncadeada;
+import com.example.TrabalhoEd.utils.ListaEncadeada;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;

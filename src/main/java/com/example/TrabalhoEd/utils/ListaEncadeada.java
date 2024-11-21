@@ -1,4 +1,4 @@
-package com.example.TrabalhoEd.model;
+package com.example.TrabalhoEd.utils;
 
 import java.io.*;
 import java.nio.file.*;

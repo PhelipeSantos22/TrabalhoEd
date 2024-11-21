@@ -1,4 +1,6 @@
-package com.example.TrabalhoEd.model;
+package com.example.TrabalhoEd.utils;
+
+import com.example.TrabalhoEd.model.Disciplina;
 
 import java.util.ArrayList;
 import java.util.List;

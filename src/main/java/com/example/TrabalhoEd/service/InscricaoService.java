@@ -1,7 +1,8 @@
 package com.example.TrabalhoEd.service;
 
 import com.example.TrabalhoEd.model.Inscricao;
-import com.example.TrabalhoEd.model.ListaEncadeada;
+import com.example.TrabalhoEd.utils.ListaEncadeada;
+import com.example.TrabalhoEd.utils.Ordenacao;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -93,6 +94,7 @@ public class InscricaoService {
                     resultado.add(detalhes);
                 }
             }
+            Ordenacao.ordenarPorPontos(resultado);
         } catch (IOException e) {
             System.err.println("Erro ao consultar inscrições: " + e.getMessage());
         }

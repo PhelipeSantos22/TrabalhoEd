@@ -1,7 +1,7 @@
 package com.example.TrabalhoEd.service;
 
 import br.edu.fateczl.fila.Fila;
-import com.example.TrabalhoEd.model.ListaEncadeada;
+import com.example.TrabalhoEd.utils.ListaEncadeada;
 import com.example.TrabalhoEd.model.Professor;
 import org.springframework.stereotype.Service;
 
@@ -9,9 +9,6 @@ import java.io.BufferedReader;
 import java.io.FileWriter;
 import java.io.FileReader;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 @Service
 public class ProfessorService {
