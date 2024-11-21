@@ -1,9 +1,9 @@
 Código,Nome,Dia da Semana,Horário Inicial,Horas Diárias,Código do Curso
-1,2,2,2,2,2
-2,3,3,3,3,3
-010,sla,sla,sla,sla,sla
-1,1,1,1,1,sla
-2,2,2,2,2,sla
-3,3,3,3,3,sla
-sla ,4,4,4,4,4
-4,4,4,4,4,sla
+101,Lógica,Segunda-feira,07:00,2,ADS1
+102,Calculo,Terça-feira,09:00,4,ADS2
+103,Sistema Operacional,Quarta-feira,10:00,4,ADS3
+104,Banco de Dados,Quinta-feira,11:00,4,ADS4
+201,Logística,Sexta-feira,19:00,4,COMEX1
+202,Legislação,Sabádo,08:00,4,COMEX2
+203,Economia,Segunda-feria,20:00,2,COMEX3
+204,Marketing,Quarta-feira,21:00,2,COMEX4
