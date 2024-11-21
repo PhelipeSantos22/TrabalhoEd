@@ -175,6 +175,22 @@
         </div>
     </div>
 
+    <!--Consultar inscrições de uma disciplina -->
+    <div class="section">
+        <h2>Consultar Inscritos de uma disciplina</h2>
+        <div class="input-group">
+            <label for="codigo-disciplina-consultar">Código da disciplina</label>
+            <input type="text" id="codigo-disciplina-consultar" name="codigo-disciplina-consultar" placeholder="Informe o código da disciplina para consulta">
+        </div>
+        <button class="button" onclick="consultarInscricoesDisciplina()">Consultar</button>
+
+        <!-- Container para exibir o resultado da consulta -->
+        <div id="response-container2" class="response-container">
+            <h2>Dados da Inscrição</h2>
+            <p id="response-text2">Dados da inscrição aparecerão aqui...</p>
+        </div>
+    </div>
+
     <!-- Botão Voltar -->
     <div class="back-button">
         <a href="/index.html" class="button">Voltar para o Menu Principal</a>
@@ -302,6 +318,51 @@
             .catch(error => {
                 console.error('Erro ao consultar inscrição:', error);
             });
+    }
+    function consultarInscricoesDisciplina() {
+        const codigoDisciplina = document.getElementById('codigo-disciplina-consultar').value;
+
+        if (!codigoDisciplina) {
+            alert("Por favor, insira o código da disciplina.");
+            return;
+        }
+
+        fetch(`/inscricoes/consultar/disciplinas/${codigoDisciplina}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+             return response.json(); // Converte a resposta em JSON
+            } else {
+             throw new Error("Erro ao consultar as inscrições da disciplina. Verifique o código e tente novamente.");
+            }
+        })
+        .then(data => {
+            const responseContainer = document.getElementById('response-container2');
+            const responseText = document.getElementById('response-text2');
+
+            if (data.length === 0) {
+                responseText.textContent = "Nenhuma inscrição encontrada para esta disciplina.";
+            } else {
+                const inscricoesHTML = data.map(inscricao => `
+                    <div>
+                        <strong>Código da disciplina:</strong> ${inscricao.codigoDisciplina}<br>
+                        <strong>Código do processo:</strong> ${inscricao.codigoDoProcesso}<br>
+                        <strong>CPF do professor:</strong> ${inscricao.cpfProfessor}<br>
+                    </div>
+                    <hr>
+                `).join('');
+                responseText.innerHTML = inscricoesHTML;
+            }
+            responseContainer.style.display = 'block';
+        })
+        .catch(error => {
+            console.error('Erro:', error);
+            alert(error.message);
+        });
     }
 </script>
 </body>
