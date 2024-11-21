@@ -335,9 +335,9 @@
         })
         .then(response => {
             if (response.ok) {
-             return response.json(); // Converte a resposta em JSON
+                return response.json(); // Converte a resposta em JSON
             } else {
-             throw new Error("Erro ao consultar as inscrições da disciplina. Verifique o código e tente novamente.");
+                throw new Error("Erro ao consultar as inscrições da disciplina. Verifique o código e tente novamente.");
             }
         })
         .then(data => {
@@ -352,6 +352,9 @@
                         <strong>Código da disciplina:</strong> ${inscricao.codigoDisciplina}<br>
                         <strong>Código do processo:</strong> ${inscricao.codigoDoProcesso}<br>
                         <strong>CPF do professor:</strong> ${inscricao.cpfProfessor}<br>
+                        <strong>Nome do professor:</strong> ${inscricao.nomeProfessor}<br>
+                        <strong>Área de conhecimento:</strong> ${inscricao.areaConhecimento}<br>
+                        <strong>Pontos:</strong> ${inscricao.pontos}<br>
                     </div>
                     <hr>
                 `).join('');
