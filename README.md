@@ -22,7 +22,7 @@ Este projeto foi desenvolvido para aplicar conceitos de Estruturas de Dados, com
 4. Abra o projeto no navegador acessando a URL: http://localhost:8080/
 
 ## Estrutura do Projeto
-- model: Contém as classes principais como Disciplina, Inscricao, e implementações das estruturas de dados (HashTable, ListaEncadeada, Fila).
+- model: Contém as classes principais como Disciplina, Inscricao
 - service: Implementa a lógica para manipular dados de disciplinas e inscrições.
 - resources: Pasta onde os arquivos CSV e os arquivos HTML estão armazenados.
 - resource/libs: Pasta que de bibliotecas.
