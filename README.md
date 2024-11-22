@@ -71,6 +71,7 @@ Este projeto foi desenvolvido para aplicar conceitos de Estruturas de Dados, com
 #### Disciplinas.csv
 - Código,Nome,Dia da Semana,Horário Inicial,Horas Diárias,Código do Curso
 - 101,Lógica,Segunda-feira,07:00,2,ADS1
+- 101,Administração,Segunda-feira,10:00,4,ADS1
 - 102,Calculo,Terça-feira,09:00,4,ADS2
 - 103,Sistema Operacional,Quarta-feira,10:00,4,ADS3
 - 104,Banco de Dados,Quinta-feira,11:00,4,ADS4
