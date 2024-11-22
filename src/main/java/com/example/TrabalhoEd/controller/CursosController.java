@@ -35,5 +35,4 @@ public class CursosController {
     public void removerCurso(@PathVariable String codigo) {
         cursoService.removerCurso(codigo);
     }
-
 }

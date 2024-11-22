@@ -51,7 +51,7 @@ public class DisciplinaService {
             while ((linha = reader.readLine()) != null) {
                 String[] campos = linha.split(",");
                 Disciplina disciplina = new Disciplina(campos[0], campos[1], campos[2], campos[3], campos[4], campos[5]);
-                hashTable.addDisciplina(disciplina); // Adiciona a disciplina na HashTable
+                hashTable.addDisciplina(disciplina);
             }
         } catch (IOException e) {
             System.err.println("Erro ao carregar disciplinas na HashTable: " + e.getMessage());
@@ -78,7 +78,7 @@ public class DisciplinaService {
         return hashTable.consultarDisciplinasPorCurso(codigoCurso);
     }
 
-    // Consultar uma disciplina por código usando a fila
+    // Consultar uma disciplina pelo código usando Fila
     public Disciplina consultarDisciplina(String codigo) {
         Fila<Disciplina> filaDeDisciplinas = new Fila<>();
 

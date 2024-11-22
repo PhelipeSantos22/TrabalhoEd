@@ -4,7 +4,6 @@ import com.example.TrabalhoEd.model.Disciplina;
 import com.example.TrabalhoEd.service.DisciplinaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController

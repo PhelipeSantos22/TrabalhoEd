@@ -335,7 +335,7 @@
         })
         .then(response => {
             if (response.ok) {
-                return response.json(); // Converte a resposta em JSON
+                return response.json();
             } else {
                 throw new Error("Erro ao consultar as inscrições da disciplina. Verifique o código e tente novamente.");
             }

@@ -17,7 +17,6 @@ public class ListaEncadeada<T> {
         this.toLinha = toLinha;
     }
 
-    // Método para carregar os dados do arquivo CSV em uma lista encadeada.
     public List<T> carregar() {
         List<T> lista = new LinkedList<>();
         Path caminho = Paths.get(caminhoArquivo);
@@ -32,7 +31,6 @@ public class ListaEncadeada<T> {
         return lista;
     }
 
-    // Método para salvar os dados da lista encadeada no arquivo CSV
     public void salvar(List<T> lista) {
         try (FileWriter writer = new FileWriter(caminhoArquivo)) {
             for (T item : lista) {
@@ -43,28 +41,26 @@ public class ListaEncadeada<T> {
         }
     }
 
-    // Método para atualizar um item da lista com base em um critério
     public void atualizar(T itemAtualizado, Function<T, Boolean> criterio) {
-        List<T> lista = carregar(); // Carrega a lista do arquivo
+        List<T> lista = carregar();
         boolean encontrado = false;
         for (int i = 0; i < lista.size(); i++) {
             if (criterio.apply(lista.get(i))) {
-                lista.set(i, itemAtualizado); // Atualiza o item na lista
+                lista.set(i, itemAtualizado);
                 encontrado = true;
                 break;
             }
         }
         if (encontrado) {
-            salvar(lista); // Salva a lista atualizada no arquivo
+            salvar(lista);
         } else {
             System.out.println("Item não encontrado para atualização.");
         }
     }
 
-    // Método para remover itens da lista com base em um critério(Código do curso)
     public void remover(Function<T, Boolean> criterio) {
-        List<T> lista = carregar(); // Carrega a lista do arquivo
-        lista.removeIf(criterio::apply); //remove o item que atende ao criterio
-        salvar(lista); // Salva a lista atualizada
+        List<T> lista = carregar();
+        lista.removeIf(criterio::apply);
+        salvar(lista);
     }
 }

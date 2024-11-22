@@ -8,7 +8,6 @@ public class Disciplina {
     private String horasDiarias;
     private String codigoCurso;
 
-    // Construtores, getters e setters
     public Disciplina(String codigo, String nome, String diaDaSemana, String horarioInicial, String horasDiarias, String codigoCurso) {
         this.codigo = codigo;
         this.nome = nome;

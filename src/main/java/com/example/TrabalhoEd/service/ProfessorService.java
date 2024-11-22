@@ -4,7 +4,6 @@ import br.edu.fateczl.fila.Fila;
 import com.example.TrabalhoEd.utils.ListaEncadeada;
 import com.example.TrabalhoEd.model.Professor;
 import org.springframework.stereotype.Service;
-
 import java.io.BufferedReader;
 import java.io.FileWriter;
 import java.io.FileReader;
@@ -38,6 +37,7 @@ public class ProfessorService {
             System.err.println("Erro ao inserir professor: " + e.getMessage());
         }
     }
+
     // Consultar um professor usando fila
     public Professor consultarProfessor(String cpf) {
         Fila<Professor> filaDeProfessores = new Fila<>();
@@ -61,13 +61,13 @@ public class ProfessorService {
         }
         return null;
     }
-
+    // Atualiza usando lista encadeada
     public void atualizarProfessor(Professor professorAtualizado){
-        listaProfessor.atualizar(professorAtualizado, p -> p.getCpf().equals(professorAtualizado.getCpf()));// chama a função atualizar da lista e passa o criterio
+        listaProfessor.atualizar(professorAtualizado, p -> p.getCpf().equals(professorAtualizado.getCpf()));
     }
-
+    // Remover usando lista encadeada
     public void removerProfessor(String cpf) {
-        listaProfessor.remover(p -> p.getCpf().equals(cpf));// chama a função excluir da lista e passa o criterio
+        listaProfessor.remover(p -> p.getCpf().equals(cpf));
     }
 }
 

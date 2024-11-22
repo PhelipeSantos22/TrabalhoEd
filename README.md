@@ -25,6 +25,7 @@ Este projeto foi desenvolvido para aplicar conceitos de Estruturas de Dados, com
 - model: Contém as classes principais como Disciplina, Inscricao, e implementações das estruturas de dados (HashTable, ListaEncadeada, Fila).
 - service: Implementa a lógica para manipular dados de disciplinas e inscrições.
 - resources: Pasta onde os arquivos CSV e os arquivos HTML estão armazenados.
+- resource/libs: Pasta que de bibliotecas.
 
 ## Funcionalidades
 ### CRUD dos arquivos csv

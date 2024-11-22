@@ -35,5 +35,4 @@ public class ProfessorController {
     public void removerProfessor(@PathVariable String cpf) {
         professorService.removerProfessor(cpf);
     }
-
 }

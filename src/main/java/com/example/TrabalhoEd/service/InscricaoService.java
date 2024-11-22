@@ -4,7 +4,6 @@ import com.example.TrabalhoEd.model.Inscricao;
 import com.example.TrabalhoEd.utils.ListaEncadeada;
 import com.example.TrabalhoEd.utils.Ordenacao;
 import org.springframework.stereotype.Service;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -25,7 +24,7 @@ public class InscricaoService {
                 INSCRICOES_FILE,
                 linha -> {
                     String[] campos = linha.split(",");
-                    return new Inscricao(campos[0], campos[1], campos[2]); // Converte linha em objeto Inscricao
+                    return new Inscricao(campos[0], campos[1], campos[2]);
                 },
                 inscricao -> inscricao.getCpfProfessor() + "," + inscricao.getCodigoDisciplina() + "," + inscricao.getCodigoDoProcesso() // Converte objeto Inscricao em linha
         );
@@ -43,16 +42,15 @@ public class InscricaoService {
     }
 
     public Inscricao consultarInscricao(String cpfProfessor) {
-        List<Inscricao> inscricoes = listaInscricao.carregar(); // Carrega todas as inscrições do arquivo
+        List<Inscricao> inscricoes = listaInscricao.carregar();
         for (Inscricao inscricao : inscricoes) {
             if (inscricao.getCpfProfessor().equals(cpfProfessor)) {
-                return inscricao; // Retorna a inscrição correspondente
+                return inscricao;
             }
         }
         return null;
     }
 
-    // Está função foi feita com o auxilio do ChatGpt para trabalhar com MAP
     public List<Map<String, String>> consultarInscricoesDisciplina(String codigoDisciplina) {
         List<Map<String, String>> resultado = new ArrayList<>();
 
@@ -100,11 +98,11 @@ public class InscricaoService {
         }
         return resultado;
     }
-
+    // Atualiza usando lista encadeada
     public void atualizarInscricao(Inscricao inscricaoAtualizada) {
-        listaInscricao.atualizar(inscricaoAtualizada, i -> i.getCodigoDoProcesso().equals(inscricaoAtualizada.getCodigoDoProcesso())); // Atualiza com base no código do processo
+        listaInscricao.atualizar(inscricaoAtualizada, i -> i.getCodigoDoProcesso().equals(inscricaoAtualizada.getCodigoDoProcesso()));
     }
-
+    // Remove usando lista encadeada
     public void removerInscricao(String cpfProfessor) {
         listaInscricao.remover(i -> i.getCpfProfessor().equals(cpfProfessor)); // Remove com base no CPF do professor
     }

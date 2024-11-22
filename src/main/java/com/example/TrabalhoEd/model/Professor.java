@@ -6,7 +6,6 @@ public class Professor {
     private String areaDeConhecimento;
     private String pontos;
 
-    // Construtores, getters e setters
     public Professor(String cpf, String nome, String areaDeConhecimento, String pontos) {
         this.cpf = cpf;
         this.nome = nome;

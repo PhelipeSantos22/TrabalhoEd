@@ -358,7 +358,6 @@
     function consultarDisciplinasPorCurso() {
     const codigoCurso = document.getElementById('codigo-curso-consultar').value;
 
-    // Verifica se o código do curso foi preenchido
     if (!codigoCurso) {
         alert("Por favor, insira o código do curso.");
         return;
@@ -372,13 +371,12 @@
     })
         .then(response => {
             if (response.ok) {
-                return response.json(); // Converte a resposta em JSON
+                return response.json();
             } else {
                 throw new Error("Erro ao consultar as disciplinas do curso. Verifique o código e tente novamente.");
             }
         })
         .then(data => {
-            // Verifica se há disciplinas no retorno
             if (data.length === 0) {
                 document.getElementById('response-text2').textContent = "Nenhuma disciplina encontrada para este curso.";
             } else {
@@ -397,7 +395,6 @@
                 document.getElementById('response-text2').innerHTML = disciplinasHTML;
             }
 
-            // Mostra o contêiner de resposta
             document.getElementById('response-container2').style.display = 'block';
         })
         .catch(error => {
@@ -405,7 +402,6 @@
             alert(error.message);
         });
 }
-
 </script>
 </body>
 </html>

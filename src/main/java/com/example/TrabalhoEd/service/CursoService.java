@@ -4,7 +4,6 @@ import br.edu.fateczl.fila.Fila;
 import com.example.TrabalhoEd.model.Curso;
 import com.example.TrabalhoEd.utils.ListaEncadeada;
 import org.springframework.stereotype.Service;
-
 import java.io.BufferedReader;
 import java.io.FileWriter;
 import java.io.FileReader;
@@ -13,7 +12,7 @@ import java.io.IOException;
 @Service
 public class CursoService {
     private final ListaEncadeada<Curso> listaCursos;
-    private static final String CURSOS_FILE = "src/main/resources/Cursos.csv"; // caminho para o arquivo csv
+    private static final String CURSOS_FILE = "src/main/resources/Cursos.csv";
 
     public CursoService() {
         this.listaCursos = new ListaEncadeada<>(
@@ -58,12 +57,11 @@ public class CursoService {
         }
         return null;
     }
-
-
+    // Atualiza o curso usando lista encadeada
     public void atualizarCurso(Curso cursoAtualizado) {
         listaCursos.atualizar(cursoAtualizado, c -> c.getCodigo().equals(cursoAtualizado.getCodigo()));// chama a função atualizar da lista e passa o criterio
     }
-
+    // Remove um curso usando lista encadeada
     public void removerCurso(String codigo) {
         listaCursos.remover(c -> c.getCodigo().equals(codigo));// chama a função excluir da lista e passa o criterio
     }
