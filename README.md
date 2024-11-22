@@ -24,6 +24,7 @@ Este projeto foi desenvolvido para aplicar conceitos de Estruturas de Dados, com
 ## Estrutura do Projeto
 - model: Contém as classes principais como Disciplina, Inscricao
 - service: Implementa a lógica para manipular dados de disciplinas e inscrições.
+- utils: Pasta com as estruturas de dados (Lista Encadeada , Algoritomos de ordenção e HashTables).
 - resources: Pasta onde os arquivos CSV e os arquivos HTML estão armazenados.
 - resource/libs: Pasta que de bibliotecas.
 
