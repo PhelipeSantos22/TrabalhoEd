@@ -26,7 +26,7 @@ Este projeto foi desenvolvido para aplicar conceitos de Estruturas de Dados, com
 - service: Implementa a lógica para manipular dados de disciplinas e inscrições.
 - utils: Pasta com as estruturas de dados (Lista Encadeada , Algoritomos de ordenção e HashTables).
 - resources: Pasta onde os arquivos CSV e os arquivos HTML estão armazenados.
-- resource/libs: Pasta que de bibliotecas.
+- resource/libs: Pasta com as bibliotecas externas.
 
 ## Funcionalidades
 ### CRUD dos arquivos csv
@@ -36,6 +36,7 @@ Este projeto foi desenvolvido para aplicar conceitos de Estruturas de Dados, com
 - Tabelas Hash: Para consultas rápidas por código do curso.
 - Filas: Para manipulação de disciplinas em ordem FIFO.
 - Listas Encadeadas: Para CRUD de dados no CSV.
+- Algoritimos de Ordenação.
 
 ### Instruções Específicas
 - Para consultar disciplinas por curso, use o método consultarDisciplinasPorCurso na DisciplinaService. Este método realiza buscas com base no código do curso usando a tabela hash.
